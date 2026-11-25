@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible problem with hs.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Please use fictional records. Do not upload personal databases. Report vulnerabilities privately through SECURITY.md."
+  - type: input
+    id: version
+    attributes:
+      label: hs version and operating system
+      description: Include your Linux distribution and terminal for TUI issues.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: A small example using a separate trial database is ideal.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Relevant output or screenshots

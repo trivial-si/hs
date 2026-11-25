@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/trivial-si/hs/discussions
+    about: Ask for help or discuss a larger idea.
+  - name: Security vulnerability
+    url: https://github.com/trivial-si/hs/security/policy
+    about: Use the private reporting channel.

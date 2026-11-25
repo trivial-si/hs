@@ -1,0 +1,19 @@
+hs is an independent Rust command-line time tracker, distributed under the
+GNU General Public License, version 3 or any later version. See LICENSE.
+
+Project Hamster v3.0.3 is the behavioral reference for quick entry, workday
+boundaries, interval adjustments, and the schema-v9 SQLite data importer.
+
+Upstream credits include the Hamster time tracker developers, Toms Bauģis
+and Patryk Zawadzki. The original source and contributor list are available
+in the tagged Project Hamster repository.
+
+https://github.com/projecthamster/hamster/tree/v3.0.3
+https://github.com/projecthamster/hamster/blob/v3.0.3/AUTHORS
+https://github.com/projecthamster/hamster/blob/v3.0.3/COPYING
+
+The Trivial Superintelligence artwork is supplied by Trivial.si from its
+existing brand assets. The phase-complete.wav asset is described in the
+original project development record as an original two-note notification
+chime. Project branding identifies its maintainers; it does not imply
+endorsement of downstream modifications.

@@ -1,0 +1,1623 @@
+#compdef hs
+
+autoload -U is-at-least
+
+_hs() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_hs_commands" \
+"*::: :->hs" \
+&& ret=0
+    case $state in
+    (hs)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-command-$line[1]:"
+        case $line[1] in
+            (api)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(capabilities)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(context)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(mcp)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(task)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_hs__subcmd__task_commands" \
+"*::: :->task" \
+&& ret=0
+
+    case $state in
+    (task)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-task-command-$line[1]:"
+        case $line[1] in
+            (add)
+_arguments "${_arguments_options[@]}" : \
+'(--activity)--time-label=[Optional plain-text label for time reports; initially defaults to the task title]:TIME_LABEL:_default' \
+'--category=[Optional grouping, e.g. Work or Personal; overrides a category in --activity]:CATEGORY:_default' \
+'(--time-label)--activity=[Hamster-style time label and metadata, e.g. '\''Writing@Work, #client'\'']:ACTIVITY:_default' \
+'--notes=[]:NOTES:_default' \
+'--tags=[Comma-separated tags]:TAGS:_default' \
+'--quadrant=[]:QUADRANT:(do plan delegate drop inbox)' \
+'--due=[Calendar deadline YYYY-MM-DD; never changes urgency automatically]:DUE:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':title:_default' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--all[]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':id:_default' \
+&& ret=0
+;;
+(set)
+_arguments "${_arguments_options[@]}" : \
+'--title=[]:TITLE:_default' \
+'(--activity)--time-label=[Change only the plain-text label for future time reports; preserves category, notes and tags]:TIME_LABEL:_default' \
+'--category=[Change the grouping without changing the time label; empty text clears it]:CATEGORY:_default' \
+'(--time-label)--activity=[Hamster-style label/category and optional notes/tags; omitted notes and tags are preserved]:ACTIVITY:_default' \
+'--notes=[Empty text clears the notes]:NOTES:_default' \
+'--tags=[Replace tags with a comma-separated list; empty clears them]:TAGS:_default' \
+'--quadrant=[]:QUADRANT:(do plan delegate drop inbox)' \
+'--due=[YYYY-MM-DD, or '\''none'\'' to clear the deadline]:DUE:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':id:_default' \
+&& ret=0
+;;
+(done)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':id:_default' \
+&& ret=0
+;;
+(reopen)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':id:_default' \
+&& ret=0
+;;
+(archive)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':id:_default' \
+&& ret=0
+;;
+(next)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__task__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-task-help-command-$line[1]:"
+        case $line[1] in
+            (add)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(set)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(done)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(reopen)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(archive)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(next)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(matrix)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(tui)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--no-sound[Keep completion banners without playing sounds]' \
+'--no-bell[Keep completion banners without playing sounds]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(ui)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--no-sound[Keep completion banners without playing sounds]' \
+'--no-bell[Keep completion banners without playing sounds]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(pomo)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_hs__subcmd__pomo_commands" \
+"*::: :->pomo" \
+&& ret=0
+
+    case $state in
+    (pomo)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-pomo-command-$line[1]:"
+        case $line[1] in
+            (start)
+_arguments "${_arguments_options[@]}" : \
+'--task=[Focus on an open task by its ID]:TASK:_default' \
+'--focus=[Focus duration, e.g. 25m, 90s, 1h (bare numbers are minutes)]:FOCUS:_default' \
+'--break=[Short break duration]:SHORT_BREAK:_default' \
+'--long-break=[Long break duration]:LONG_BREAK:_default' \
+'--rounds=[Completed focus periods before each long break]:ROUNDS:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--detach[Return immediately instead of watching in an interactive terminal]' \
+'--no-bell[Mute the completion sound; keep the visual cue]' \
+'--no-sound[Mute the completion sound; keep the visual cue]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'::input:_default' \
+&& ret=0
+;;
+(status)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(pause)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(resume)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--detach[Return immediately instead of watching in an interactive terminal]' \
+'--no-bell[Mute the completion sound; keep the visual cue]' \
+'--no-sound[Mute the completion sound; keep the visual cue]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(next)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--detach[Return immediately instead of watching in an interactive terminal]' \
+'--no-bell[Mute the completion sound; keep the visual cue]' \
+'--no-sound[Mute the completion sound; keep the visual cue]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(watch)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--no-bell[Mute the completion sound; keep the visual cue]' \
+'--no-sound[Mute the completion sound; keep the visual cue]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(stats)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__pomo__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-pomo-help-command-$line[1]:"
+        case $line[1] in
+            (start)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(status)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(pause)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(resume)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(next)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(watch)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(stats)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(start)
+_arguments "${_arguments_options[@]}" : \
+'--task=[Track an open task by its ID]:TASK:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'::input -- Hamster-style entry, quoted as one argument:_default' \
+&& ret=0
+;;
+(add)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':input:_default' \
+&& ret=0
+;;
+(status)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" : \
+'--at=[Stop at a clock time, dated time, or signed minute offset]:TIME:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(resume)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'::id -- Entry to copy; defaults to the latest completed entry:_default' \
+&& ret=0
+;;
+(edit)
+_arguments "${_arguments_options[@]}" : \
+'--start=[]:START:_default' \
+'--end=[]:END:_default' \
+'--activity=[]:ACTIVITY:_default' \
+'--category=[Use an empty string to remove the category]:CATEGORY:_default' \
+'--description=[]:DESCRIPTION:_default' \
+'--tags=[Replace tags with a comma-separated list; empty clears tags]:TAGS:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':id:_default' \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':id:_default' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'--from=[First workday, YYYY-MM-DD]:FROM:_default' \
+'--to=[Last workday inclusive, YYYY-MM-DD; defaults to today]:TO:_default' \
+'--search=[Search activity, category, description, and tags]:SEARCH:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'(--week --month --all --from --to)--today[Current workday (the default)]' \
+'(--month --all --from --to)--week[Current Monday-based week]' \
+'(--all --from --to)--month[Current calendar month]' \
+'(--from --to)--all[All recorded history]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(report)
+_arguments "${_arguments_options[@]}" : \
+'--from=[First workday, YYYY-MM-DD]:FROM:_default' \
+'--to=[Last workday inclusive, YYYY-MM-DD; defaults to today]:TO:_default' \
+'--group-by=[]:GROUP_BY:(activity category tag day quadrant)' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'(--week --month --all --from --to)--today[Current workday (the default)]' \
+'(--month --all --from --to)--week[Current Monday-based week]' \
+'(--all --from --to)--month[Current calendar month]' \
+'(--from --to)--all[All recorded history]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(export)
+_arguments "${_arguments_options[@]}" : \
+'--from=[First workday, YYYY-MM-DD]:FROM:_default' \
+'--to=[Last workday inclusive, YYYY-MM-DD; defaults to today]:TO:_default' \
+'--format=[]:FORMAT:(tsv json)' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'(--week --month --all --from --to)--today[Current workday (the default)]' \
+'(--month --all --from --to)--week[Current Monday-based week]' \
+'(--all --from --to)--month[Current calendar month]' \
+'(--from --to)--all[All recorded history]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(import)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_hs__subcmd__import_commands" \
+"*::: :->import" \
+&& ret=0
+
+    case $state in
+    (import)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-import-command-$line[1]:"
+        case $line[1] in
+            (hamster)
+_arguments "${_arguments_options[@]}" : \
+'--source-name=[Stable identity for this source; reuse after moving its file]:SOURCE_NAME:_default' \
+'--day-start=[Original Hamster workday boundary, HH\:MM]:DAY_START:_default' \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--dry-run[Validate and preview without committing imported records]' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path:_files' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__import__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-import-help-command-$line[1]:"
+        case $line[1] in
+            (hamster)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(config)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+":: :_hs__subcmd__config_commands" \
+"*::: :->config" \
+&& ret=0
+
+    case $state in
+    (config)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-config-command-$line[1]:"
+        case $line[1] in
+            (day-start)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'::time:_default' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__config__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-config-help-command-$line[1]:"
+        case $line[1] in
+            (day-start)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(backup)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':path:_files' \
+&& ret=0
+;;
+(activities)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(categories)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(tags)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(completions)
+_arguments "${_arguments_options[@]}" : \
+'--db=[Use a separate hs database]:PATH:_files' \
+'--json[Print versioned JSON for status, reports, matrix, task list/show/next, or pomo status/stats]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':shell:(bash zsh fish)' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-help-command-$line[1]:"
+        case $line[1] in
+            (api)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(capabilities)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(context)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(mcp)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(task)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__help__subcmd__task_commands" \
+"*::: :->task" \
+&& ret=0
+
+    case $state in
+    (task)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-help-task-command-$line[1]:"
+        case $line[1] in
+            (add)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(show)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(set)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(done)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(reopen)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(archive)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(next)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(matrix)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(tui)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(pomo)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__help__subcmd__pomo_commands" \
+"*::: :->pomo" \
+&& ret=0
+
+    case $state in
+    (pomo)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-help-pomo-command-$line[1]:"
+        case $line[1] in
+            (start)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(status)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(pause)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(resume)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(next)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(watch)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(stats)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(start)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(add)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(status)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(resume)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(edit)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(report)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(export)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(import)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__help__subcmd__import_commands" \
+"*::: :->import" \
+&& ret=0
+
+    case $state in
+    (import)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-help-import-command-$line[1]:"
+        case $line[1] in
+            (hamster)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(config)
+_arguments "${_arguments_options[@]}" : \
+":: :_hs__subcmd__help__subcmd__config_commands" \
+"*::: :->config" \
+&& ret=0
+
+    case $state in
+    (config)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:hs-help-config-command-$line[1]:"
+        case $line[1] in
+            (day-start)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(backup)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(activities)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(categories)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(tags)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(completions)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_hs_commands] )) ||
+_hs_commands() {
+    local commands; commands=(
+'api:Execute one versioned JSON request from stdin; emit one JSON response' \
+'capabilities:Print agent operations and their JSON Schemas without opening a database' \
+'context:Inspect stored state as JSON without advancing timers or migrating data' \
+'mcp:Serve local agent tools over MCP stdio (protocol 2025-11-25)' \
+'task:Capture and prioritize tasks' \
+'matrix:Show open tasks by importance and urgency, followed by the inbox' \
+'tui:Open the interactive matrix, inbox, task editor and timer controls' \
+'ui:Open the interactive matrix, inbox, task editor and timer controls' \
+'pomo:Run persistent focus and break timers' \
+'start:Start an activity, closing the current one at the same time' \
+'add:Record a past interval or start an activity with no end time' \
+'status:Show the current activity' \
+'stop:Stop the current activity' \
+'resume:Start a new entry using a previous entry'\''s details' \
+'edit:Correct an entry by its ID' \
+'delete:Delete an entry by its ID' \
+'list:List entries, including unfinished imported records' \
+'report:Show totals for a day, week, month, or date range' \
+'export:Export matching entries and clipped durations' \
+'import:Import history from another time tracker' \
+'config:View or change workday settings' \
+'backup:Create a consistent SQLite backup at a new path' \
+'activities:List activities available for reuse' \
+'categories:List known categories' \
+'tags:List tags available for reuse' \
+'completions:Print a shell completion script' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__activities_commands] )) ||
+_hs__subcmd__activities_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs activities commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__add_commands] )) ||
+_hs__subcmd__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs add commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__api_commands] )) ||
+_hs__subcmd__api_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs api commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__backup_commands] )) ||
+_hs__subcmd__backup_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs backup commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__capabilities_commands] )) ||
+_hs__subcmd__capabilities_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs capabilities commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__categories_commands] )) ||
+_hs__subcmd__categories_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs categories commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__completions_commands] )) ||
+_hs__subcmd__completions_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs completions commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__config_commands] )) ||
+_hs__subcmd__config_commands() {
+    local commands; commands=(
+'day-start:Print or set the start of a workday (default 00\:00)' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs config commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__config__subcmd__day-start_commands] )) ||
+_hs__subcmd__config__subcmd__day-start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs config day-start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__config__subcmd__help_commands] )) ||
+_hs__subcmd__config__subcmd__help_commands() {
+    local commands; commands=(
+'day-start:Print or set the start of a workday (default 00\:00)' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs config help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__config__subcmd__help__subcmd__day-start_commands] )) ||
+_hs__subcmd__config__subcmd__help__subcmd__day-start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs config help day-start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__config__subcmd__help__subcmd__help_commands] )) ||
+_hs__subcmd__config__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs config help help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__context_commands] )) ||
+_hs__subcmd__context_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs context commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__delete_commands] )) ||
+_hs__subcmd__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs delete commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__edit_commands] )) ||
+_hs__subcmd__edit_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs edit commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__export_commands] )) ||
+_hs__subcmd__export_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs export commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help_commands] )) ||
+_hs__subcmd__help_commands() {
+    local commands; commands=(
+'api:Execute one versioned JSON request from stdin; emit one JSON response' \
+'capabilities:Print agent operations and their JSON Schemas without opening a database' \
+'context:Inspect stored state as JSON without advancing timers or migrating data' \
+'mcp:Serve local agent tools over MCP stdio (protocol 2025-11-25)' \
+'task:Capture and prioritize tasks' \
+'matrix:Show open tasks by importance and urgency, followed by the inbox' \
+'tui:Open the interactive matrix, inbox, task editor and timer controls' \
+'pomo:Run persistent focus and break timers' \
+'start:Start an activity, closing the current one at the same time' \
+'add:Record a past interval or start an activity with no end time' \
+'status:Show the current activity' \
+'stop:Stop the current activity' \
+'resume:Start a new entry using a previous entry'\''s details' \
+'edit:Correct an entry by its ID' \
+'delete:Delete an entry by its ID' \
+'list:List entries, including unfinished imported records' \
+'report:Show totals for a day, week, month, or date range' \
+'export:Export matching entries and clipped durations' \
+'import:Import history from another time tracker' \
+'config:View or change workday settings' \
+'backup:Create a consistent SQLite backup at a new path' \
+'activities:List activities available for reuse' \
+'categories:List known categories' \
+'tags:List tags available for reuse' \
+'completions:Print a shell completion script' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__activities_commands] )) ||
+_hs__subcmd__help__subcmd__activities_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help activities commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__add_commands] )) ||
+_hs__subcmd__help__subcmd__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help add commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__api_commands] )) ||
+_hs__subcmd__help__subcmd__api_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help api commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__backup_commands] )) ||
+_hs__subcmd__help__subcmd__backup_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help backup commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__capabilities_commands] )) ||
+_hs__subcmd__help__subcmd__capabilities_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help capabilities commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__categories_commands] )) ||
+_hs__subcmd__help__subcmd__categories_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help categories commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__completions_commands] )) ||
+_hs__subcmd__help__subcmd__completions_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help completions commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__config_commands] )) ||
+_hs__subcmd__help__subcmd__config_commands() {
+    local commands; commands=(
+'day-start:Print or set the start of a workday (default 00\:00)' \
+    )
+    _describe -t commands 'hs help config commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__config__subcmd__day-start_commands] )) ||
+_hs__subcmd__help__subcmd__config__subcmd__day-start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help config day-start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__context_commands] )) ||
+_hs__subcmd__help__subcmd__context_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help context commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__delete_commands] )) ||
+_hs__subcmd__help__subcmd__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help delete commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__edit_commands] )) ||
+_hs__subcmd__help__subcmd__edit_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help edit commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__export_commands] )) ||
+_hs__subcmd__help__subcmd__export_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help export commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__help_commands] )) ||
+_hs__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__import_commands] )) ||
+_hs__subcmd__help__subcmd__import_commands() {
+    local commands; commands=(
+'hamster:Import a Hamster schema-v9 database' \
+    )
+    _describe -t commands 'hs help import commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__import__subcmd__hamster_commands] )) ||
+_hs__subcmd__help__subcmd__import__subcmd__hamster_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help import hamster commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__list_commands] )) ||
+_hs__subcmd__help__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help list commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__matrix_commands] )) ||
+_hs__subcmd__help__subcmd__matrix_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help matrix commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__mcp_commands] )) ||
+_hs__subcmd__help__subcmd__mcp_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help mcp commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo_commands] )) ||
+_hs__subcmd__help__subcmd__pomo_commands() {
+    local commands; commands=(
+'start:Begin focus and watch it in an interactive terminal' \
+'status:Show phase, remaining time and completed focus count' \
+'pause:Pause the current phase and its work entry' \
+'resume:Resume the paused phase with its remaining time' \
+'next:Start the offered break or next focus period' \
+'stop:End the session, preserving work already recorded' \
+'watch:Show a live countdown until the phase ends or pauses; Ctrl-C leaves it running' \
+'stats:Show completed/interrupted focus periods and recorded focus/break totals' \
+    )
+    _describe -t commands 'hs help pomo commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__next_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__next_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo next commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__pause_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__pause_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo pause commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__resume_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__resume_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo resume commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__start_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__stats_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__stats_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo stats commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__status_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__status_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo status commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__stop_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo stop commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__pomo__subcmd__watch_commands] )) ||
+_hs__subcmd__help__subcmd__pomo__subcmd__watch_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help pomo watch commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__report_commands] )) ||
+_hs__subcmd__help__subcmd__report_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help report commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__resume_commands] )) ||
+_hs__subcmd__help__subcmd__resume_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help resume commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__start_commands] )) ||
+_hs__subcmd__help__subcmd__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__status_commands] )) ||
+_hs__subcmd__help__subcmd__status_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help status commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__stop_commands] )) ||
+_hs__subcmd__help__subcmd__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help stop commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__tags_commands] )) ||
+_hs__subcmd__help__subcmd__tags_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help tags commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task_commands] )) ||
+_hs__subcmd__help__subcmd__task_commands() {
+    local commands; commands=(
+'add:Capture a finishable outcome; unclassified tasks enter the inbox' \
+'list:List open tasks, or include done and archived tasks with --all' \
+'show:Show task details, recorded time and current timer' \
+'set:Change task details without interrupting current work' \
+'done:Complete a task and stop its own timer, if any' \
+'reopen:Reopen a task without starting a timer' \
+'archive:Hide a task while preserving history and stopping its own timer' \
+'next:Suggest an open Do task, then Plan, ordered by due date and ID' \
+    )
+    _describe -t commands 'hs help task commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__add_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task add commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__archive_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__archive_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task archive commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__done_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__done_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task done commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__list_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task list commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__next_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__next_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task next commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__reopen_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__reopen_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task reopen commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__set_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__set_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task set commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__task__subcmd__show_commands] )) ||
+_hs__subcmd__help__subcmd__task__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help task show commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__help__subcmd__tui_commands] )) ||
+_hs__subcmd__help__subcmd__tui_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs help tui commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__import_commands] )) ||
+_hs__subcmd__import_commands() {
+    local commands; commands=(
+'hamster:Import a Hamster schema-v9 database' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs import commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__import__subcmd__hamster_commands] )) ||
+_hs__subcmd__import__subcmd__hamster_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs import hamster commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__import__subcmd__help_commands] )) ||
+_hs__subcmd__import__subcmd__help_commands() {
+    local commands; commands=(
+'hamster:Import a Hamster schema-v9 database' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs import help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__import__subcmd__help__subcmd__hamster_commands] )) ||
+_hs__subcmd__import__subcmd__help__subcmd__hamster_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs import help hamster commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__import__subcmd__help__subcmd__help_commands] )) ||
+_hs__subcmd__import__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs import help help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__list_commands] )) ||
+_hs__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs list commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__matrix_commands] )) ||
+_hs__subcmd__matrix_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs matrix commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__mcp_commands] )) ||
+_hs__subcmd__mcp_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs mcp commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo_commands] )) ||
+_hs__subcmd__pomo_commands() {
+    local commands; commands=(
+'start:Begin focus and watch it in an interactive terminal' \
+'status:Show phase, remaining time and completed focus count' \
+'pause:Pause the current phase and its work entry' \
+'resume:Resume the paused phase with its remaining time' \
+'next:Start the offered break or next focus period' \
+'stop:End the session, preserving work already recorded' \
+'watch:Show a live countdown until the phase ends or pauses; Ctrl-C leaves it running' \
+'stats:Show completed/interrupted focus periods and recorded focus/break totals' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs pomo commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help_commands] )) ||
+_hs__subcmd__pomo__subcmd__help_commands() {
+    local commands; commands=(
+'start:Begin focus and watch it in an interactive terminal' \
+'status:Show phase, remaining time and completed focus count' \
+'pause:Pause the current phase and its work entry' \
+'resume:Resume the paused phase with its remaining time' \
+'next:Start the offered break or next focus period' \
+'stop:End the session, preserving work already recorded' \
+'watch:Show a live countdown until the phase ends or pauses; Ctrl-C leaves it running' \
+'stats:Show completed/interrupted focus periods and recorded focus/break totals' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs pomo help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__help_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__next_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__next_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help next commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__pause_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__pause_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help pause commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__resume_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__resume_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help resume commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__start_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__stats_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__stats_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help stats commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__status_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__status_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help status commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__stop_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help stop commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__help__subcmd__watch_commands] )) ||
+_hs__subcmd__pomo__subcmd__help__subcmd__watch_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo help watch commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__next_commands] )) ||
+_hs__subcmd__pomo__subcmd__next_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo next commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__pause_commands] )) ||
+_hs__subcmd__pomo__subcmd__pause_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo pause commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__resume_commands] )) ||
+_hs__subcmd__pomo__subcmd__resume_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo resume commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__start_commands] )) ||
+_hs__subcmd__pomo__subcmd__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__stats_commands] )) ||
+_hs__subcmd__pomo__subcmd__stats_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo stats commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__status_commands] )) ||
+_hs__subcmd__pomo__subcmd__status_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo status commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__stop_commands] )) ||
+_hs__subcmd__pomo__subcmd__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo stop commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__pomo__subcmd__watch_commands] )) ||
+_hs__subcmd__pomo__subcmd__watch_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs pomo watch commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__report_commands] )) ||
+_hs__subcmd__report_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs report commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__resume_commands] )) ||
+_hs__subcmd__resume_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs resume commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__start_commands] )) ||
+_hs__subcmd__start_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs start commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__status_commands] )) ||
+_hs__subcmd__status_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs status commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__stop_commands] )) ||
+_hs__subcmd__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs stop commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__tags_commands] )) ||
+_hs__subcmd__tags_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs tags commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task_commands] )) ||
+_hs__subcmd__task_commands() {
+    local commands; commands=(
+'add:Capture a finishable outcome; unclassified tasks enter the inbox' \
+'list:List open tasks, or include done and archived tasks with --all' \
+'show:Show task details, recorded time and current timer' \
+'set:Change task details without interrupting current work' \
+'done:Complete a task and stop its own timer, if any' \
+'reopen:Reopen a task without starting a timer' \
+'archive:Hide a task while preserving history and stopping its own timer' \
+'next:Suggest an open Do task, then Plan, ordered by due date and ID' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs task commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__add_commands] )) ||
+_hs__subcmd__task__subcmd__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task add commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__archive_commands] )) ||
+_hs__subcmd__task__subcmd__archive_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task archive commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__done_commands] )) ||
+_hs__subcmd__task__subcmd__done_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task done commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help_commands] )) ||
+_hs__subcmd__task__subcmd__help_commands() {
+    local commands; commands=(
+'add:Capture a finishable outcome; unclassified tasks enter the inbox' \
+'list:List open tasks, or include done and archived tasks with --all' \
+'show:Show task details, recorded time and current timer' \
+'set:Change task details without interrupting current work' \
+'done:Complete a task and stop its own timer, if any' \
+'reopen:Reopen a task without starting a timer' \
+'archive:Hide a task while preserving history and stopping its own timer' \
+'next:Suggest an open Do task, then Plan, ordered by due date and ID' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'hs task help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__add_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__add_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help add commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__archive_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__archive_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help archive commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__done_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__done_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help done commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__help_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help help commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__list_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help list commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__next_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__next_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help next commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__reopen_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__reopen_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help reopen commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__set_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__set_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help set commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__help__subcmd__show_commands] )) ||
+_hs__subcmd__task__subcmd__help__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task help show commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__list_commands] )) ||
+_hs__subcmd__task__subcmd__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task list commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__next_commands] )) ||
+_hs__subcmd__task__subcmd__next_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task next commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__reopen_commands] )) ||
+_hs__subcmd__task__subcmd__reopen_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task reopen commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__set_commands] )) ||
+_hs__subcmd__task__subcmd__set_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task set commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__task__subcmd__show_commands] )) ||
+_hs__subcmd__task__subcmd__show_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs task show commands' commands "$@"
+}
+(( $+functions[_hs__subcmd__tui_commands] )) ||
+_hs__subcmd__tui_commands() {
+    local commands; commands=()
+    _describe -t commands 'hs tui commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_hs" ]; then
+    _hs "$@"
+else
+    compdef _hs hs
+fi
