@@ -25,7 +25,7 @@ sha2 = "=0.10.9"
 thiserror = "=2.0.21"
 tempfile = "=3.27.0"
 unicode-segmentation = "=1.13.3"
-unicode-width = "=0.2.2"
+unicode-width = "=0.2.3"
 ratatui = { version = "=0.30.2", default-features = false, features = ["crossterm"] }
 crossterm = "=0.29.0"
 
