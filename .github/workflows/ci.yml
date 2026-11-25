@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install pinned Rust toolchain
         run: rustup toolchain install 1.100.0 --profile minimal --component rustfmt --component clippy
       - name: Check documentation links
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install minimum supported Rust
         run: rustup toolchain install 1.88.0 --profile minimal
       - name: Check minimum supported Rust
