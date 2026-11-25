@@ -1,4 +1,4 @@
-<p align="center"><a href="https://trivial.si"><img src="assets/trivial-superintelligence.png" width="360" alt="Trivial Superintelligence"></a></p>
+![hs by Trivial.si — local time tracking, inspired by Project Hamster](assets/social-preview.png)
 
 # hs — your time, on your terms
 
