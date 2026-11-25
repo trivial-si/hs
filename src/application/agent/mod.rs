@@ -11,7 +11,6 @@ use crate::{Error, Store, storage::agent as persistence};
 use command::Command;
 use rusqlite::{Connection, TransactionBehavior};
 use serde_json::{Value, json};
-use sha2::{Digest, Sha256};
 use std::path::Path;
 
 pub const MAX_REQUEST_BYTES: usize = crate::wire::MAX_JSON_BYTES;
@@ -154,10 +153,7 @@ fn fingerprint(request: &Value) -> WireResult<String> {
         .clone();
     fields.remove("preview");
     fields.remove("request_id");
-    Ok(format!(
-        "{:x}",
-        Sha256::digest(serde_json::to_vec(&fields)?)
-    ))
+    Ok(crate::digest::sha256_hex(serde_json::to_vec(&fields)?))
 }
 
 fn recorded_response(
