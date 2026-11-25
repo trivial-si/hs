@@ -1,7 +1,7 @@
-![hs by Trivial.si — local time tracking, inspired by Project Hamster](assets/social-preview.png#gh-light-mode-only)
-![hs by Trivial.si — local time tracking, inspired by Project Hamster](assets/social-preview-dark.png#gh-dark-mode-only)
+![hs by Trivial.si. Local time tracking, inspired by Project Hamster](assets/social-preview.png#gh-light-mode-only)
+![hs by Trivial.si. Local time tracking, inspired by Project Hamster](assets/social-preview-dark.png#gh-dark-mode-only)
 
-# hs — your time, on your terms
+# hs: your time, on your terms
 
 Local time tracking, tasks, and focus sessions for your terminal. Written in Rust. Inspired by [Project Hamster](https://github.com/projecthamster/hamster).
 

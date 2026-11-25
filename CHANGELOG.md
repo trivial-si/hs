@@ -4,7 +4,7 @@
 
 Future changes will be recorded here.
 
-## 0.1.0 — 2026-11-25
+## 0.1.0 (2026-11-25)
 
 Initial public release of hs by Trivial.si.
 

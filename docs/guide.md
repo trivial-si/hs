@@ -12,7 +12,7 @@ You can plan tasks first or start tracking immediately. Both workflows produce t
 | **Time label** (activity) | The name used to group recorded work in reports. It defaults to the task's name; choosing a separate label is optional. | `Writing` across several tasks |
 | **Category** | One optional group for the work. | `Work` |
 | **Tags** | Optional labels you can combine and filter by. | `client`, `follow-up` |
-| **Time entry** | One recorded stretch of work, with a start and end. | 09:00–09:25 writing the proposal |
+| **Time entry** | One recorded stretch of work, with a start and end. | 09:00 to 09:25 writing the proposal |
 | **Pomodoro** | A way to run the timer with focus periods and breaks. Focus creates time entries. | 25 minutes writing, then a 5-minute break |
 
 For the simplest setup, give a task a name and start its timer. Add a category, tags, or a separate time label when you need them for reports. “Activity” remains the name used in Hamster, exports, and the agent API.
@@ -35,7 +35,7 @@ Database paths are literal filenames. For example, `--db ':memory:'` saves a per
 
 ## Choose a workflow
 
-**Plan a task first — recommended for the matrix and TUI.** Capture the outcome, then select it in the TUI and press Space for a Pomodoro or `s` for ordinary tracking. Mark the task done when you have sent the proposal; stopping its timer only ends the current stretch of work.
+**Plan a task first (recommended for the matrix and TUI).** Capture the outcome, then select it in the TUI and press Space for a Pomodoro or `s` for ordinary tracking. Mark the task done when you have sent the proposal; stopping its timer only ends the current stretch of work.
 
 ```sh
 hs task add 'Send proposal' --quadrant plan
@@ -100,7 +100,7 @@ Select a task and press **Space** to start focus. Space then pauses or resumes t
 | Key | Action |
 | --- | --- |
 | Arrow keys | Move between panes spatially: Up / Down between matrix rows and the inbox, Left / Right between quadrants in a row. Up from the inbox returns through the last visited column (left initially). Arrows stop at the outer edges. |
-| `Tab` / `Shift-Tab`, `h` / `l`, or `1`–`5` | Select a quadrant or the inbox. Numbers mean Do, Plan, Drop, Delegate, Inbox. |
+| `Tab` / `Shift-Tab`, `h` / `l`, or `1` to `5` | Select a quadrant or the inbox. Numbers mean Do, Plan, Drop, Delegate, Inbox. |
 | `j` / `k` | Select the next / previous task; Page Up / Down moves ten tasks, Home / End selects the first / last task. |
 | `Enter` | Open task details. Page Up / Down scrolls long dialogs. |
 | `/` | Search task names, time labels, categories, and tags; `Esc` clears the applied filter. |
