@@ -33,6 +33,37 @@ The examples below assume `~/.local/bin` is on your `PATH`. The default database
 
 Database paths are literal filenames. For example, `--db ':memory:'` saves a persistent file named `:memory:`, and `--db 'file:trial.db'` saves a file with that exact name. If an older version left an empty `file:` placeholder, open its previous database using the plain path, such as `--db trial.db`. To initialize the literal empty file, use `--db './file:trial.db'`.
 
+### Verified example: Arch Linux
+
+These steps were followed from a clean checkout on Arch Linux (rolling release, checked on 2026-11-25 with kernel 7.3.5, GCC 16.2.1, and rustup 1.29.3). Install a C compiler, Git, and rustup from the official repositories:
+
+```sh
+sudo pacman -S --needed base-devel git rustup
+```
+
+You do not need to choose a Rust version. Inside the checkout, rustup reads `rust-toolchain.toml` and installs the pinned toolchain on the first `cargo` command. If you prefer the Arch `rust` package to rustup, it must provide Rust 1.88 or newer. Then build and install:
+
+```sh
+git clone https://github.com/trivial-si/hs.git
+cd hs
+cargo build --release --locked
+install -Dm755 target/release/hs "$HOME/.local/bin/hs"
+hs --version
+```
+
+Try it with a disposable database before using your default one:
+
+```sh
+hs --db /tmp/hs-trial.db start 'Writing@Work, #project'
+hs --db /tmp/hs-trial.db stop
+hs --db /tmp/hs-trial.db list --today
+hs --db /tmp/hs-trial.db task add 'Finish the proposal' --quadrant plan
+hs --db /tmp/hs-trial.db tui
+rm /tmp/hs-trial.db
+```
+
+For completion sounds, any of `paplay` (from `libpulse`), `pw-play` (from `pipewire-audio`), or `aplay` (from `alsa-utils`) works. A desktop install usually has one already. Without them, `hs` falls back to the terminal bell.
+
 ## Choose a workflow
 
 **Plan a task first (recommended for the matrix and TUI).** Capture the outcome, then select it in the TUI and press Space for a Pomodoro or `s` for ordinary tracking. Mark the task done when you have sent the proposal; stopping its timer only ends the current stretch of work.
