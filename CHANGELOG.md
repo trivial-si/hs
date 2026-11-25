@@ -5,6 +5,7 @@
 - Updated clap to 4.6.9, rustix to 1.1.6, sha2 to 0.11.1, signal-hook to 0.4.6, and unicode-width to 0.2.3. Request and import fingerprints are unchanged.
 - Updated the pinned `actions/checkout` CI action to 7.0.1.
 - Documented a verified installation on Arch Linux in the user guide.
+- Added a reproducible terminal demo with fictional tasks, a temporary database, and a screenshot of the interface.
 
 ## 0.1.0 (2026-11-25)
 
