@@ -1,6 +1,7 @@
 //! Local time tracking with a pure domain, transactional application workflows,
 //! and concrete SQLite persistence. The CLI is a separate binary in this package.
 pub mod application;
+mod digest;
 pub mod domain;
 pub mod error;
 pub mod storage;

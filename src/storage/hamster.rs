@@ -4,7 +4,6 @@ use std::path::Path;
 
 use chrono::NaiveDateTime;
 use rusqlite::{Connection, OpenFlags, OptionalExtension, Row, Transaction, params};
-use sha2::{Digest, Sha256};
 
 use crate::model::NewEntry;
 use crate::store::{insert_entry, literal_path};
@@ -271,7 +270,7 @@ impl Snapshot {
             .flatten()
             .map(|&id| (id, self.tags[&id].name.as_str()))
             .collect();
-        let fingerprint = Sha256::digest(serde_json::to_vec(&(
+        let fingerprint = crate::digest::sha256_hex(serde_json::to_vec(&(
             fact.id,
             fact.activity_id,
             &activity.name,
@@ -308,7 +307,7 @@ impl Snapshot {
             clock: None,
             task: None,
         };
-        Ok((entry, format!("{fingerprint:x}")))
+        Ok((entry, fingerprint))
     }
 }
 

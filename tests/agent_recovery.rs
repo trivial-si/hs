@@ -260,7 +260,10 @@ fn an_exact_old_request_can_recover_its_receipt_after_input_validation_tightens(
     old["preconditions"]["task_revision"] = t["data"]["result"]["revision"].clone();
     let mut fields = old.clone();
     fields.as_object_mut().unwrap().remove("request_id");
-    let hash = format!("{:x}", Sha256::digest(serde_json::to_vec(&fields).unwrap()));
+    let hash = Sha256::digest(serde_json::to_vec(&fields).unwrap())
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect::<String>();
     let conn = rusqlite::Connection::open(&path).unwrap();
     conn.execute(
         "UPDATE operation_receipts SET fingerprint=? WHERE request_id='delete'",
