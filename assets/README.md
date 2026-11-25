@@ -11,4 +11,6 @@ rsvg-convert assets/social-preview.svg -o assets/social-preview.png
 rsvg-convert assets/social-preview-dark.svg -o assets/social-preview-dark.png
 ```
 
+`demo-tui.svg` and its PNG export are a screenshot of the [terminal demo](../docs/demo.md), rendered from a real run in the same palette. Regeneration steps are in that guide.
+
 The original Trivial Superintelligence company artwork is retained in `trivial-superintelligence.png`. The project mascot is original artwork; see [NOTICE](../NOTICE).

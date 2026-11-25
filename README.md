@@ -46,6 +46,10 @@ hs tui
 
 Press `?` for keyboard help. Select a task and press `s` to track it or Space to start a focus session. Quitting leaves the timer saved.
 
+[![The hs terminal interface: a running focus session above an Eisenhower matrix of fictional tasks](assets/demo-tui.png)](docs/demo.md)
+
+To try this with fictional tasks and a throwaway database, run the [terminal demo](docs/demo.md).
+
 The default database is `~/.local/share/hs/hs.db` (or under an absolute `XDG_DATA_HOME`). Use `hs --db ./trial.db …` to experiment with a separate database. Use `hs backup ./hs-backup.db` to create a consistent backup at a new path.
 
 ## Coming from Hamster?
@@ -59,6 +63,7 @@ Read the [migration guide](docs/hamster.md) for supported schemas, a trial impor
 ## Documentation
 
 - [User guide](docs/guide.md): tracking, tasks, TUI, Pomodoro, reports, backup, and completion.
+- [Terminal demo](docs/demo.md): a scripted tour with fictional tasks and a temporary database.
 - [Hamster migration](docs/hamster.md): importing existing history.
 - [JSON API and MCP](docs/agents.md): local agent integration and write safeguards.
 - [Architecture](docs/architecture.md): where the code lives and how it fits together.
