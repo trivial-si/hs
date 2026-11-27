@@ -1,6 +1,6 @@
 # Code of conduct
 
-We want people with different experience and backgrounds to feel welcome contributing to Trivial.si projects.
+We want people with different experience and backgrounds to feel welcome contributing to trivial.si projects.
 
 Be considerate and specific. Critique ideas and code, explain your reasoning, give credit, and respect boundaries. Help newcomers find the next useful step. Disagreement is welcome; harassment, discrimination, threats, sexual harassment, doxxing, and deliberate disruption are not.
 

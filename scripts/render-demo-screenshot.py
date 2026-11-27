@@ -3,7 +3,7 @@
 
 Runs docs/demo.sh in a pseudo-terminal, waits for `hs tui` to draw the
 matrix with the demo's focus session, records the screen with the pyte
-terminal emulator, quits, and writes an SVG in the Trivial.si palette.
+terminal emulator, quits, and writes an SVG in the trivial.si palette.
 
 Usage:
     python3 scripts/render-demo-screenshot.py HS_EXECUTABLE OUTPUT.svg

@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
-  <title id="title">hs by Trivial.si</title>
+  <title id="title">hs by trivial.si</title>
   <desc id="desc">Local time tracking, tasks, and focus sessions for your terminal. Written in Rust. Inspired by Project Hamster.</desc>
   <rect width="1280" height="640" fill="#0d1117"/>
   <path d="M64 112 H1216 M64 548 H1216" stroke="#303d4a" stroke-width="1"/>
   <g font-family="Roboto, Arial, sans-serif" fill="#f7f8f5">
     <text x="64" y="79" font-size="32">trivial<tspan fill="#ff622e">.si</tspan></text>
     <text x="1216" y="74" font-size="17" text-anchor="end" fill="#aab6c2">OPEN SOURCE</text>
-    <text x="64" y="287" font-size="146">hs<tspan font-size="28" fill="#aab6c2">  by Trivial.si</tspan></text>
+    <text x="64" y="287" font-size="146">hs<tspan font-size="28" fill="#aab6c2">  by trivial.si</tspan></text>
     <path d="M68 322 H152" stroke="#ff622e" stroke-width="6"/>
     <text x="64" y="383" font-size="36">Your time, on your terms.</text>
     <text x="64" y="435" font-size="24" fill="#aab6c2">Local time tracking, tasks, and focus sessions</text>

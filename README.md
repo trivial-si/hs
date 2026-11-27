@@ -1,5 +1,5 @@
-![hs by Trivial.si. Local time tracking, inspired by Project Hamster](assets/social-preview.png#gh-light-mode-only)
-![hs by Trivial.si. Local time tracking, inspired by Project Hamster](assets/social-preview-dark.png#gh-dark-mode-only)
+![hs by trivial.si. Local time tracking, inspired by Project Hamster](assets/social-preview.png#gh-light-mode-only)
+![hs by trivial.si. Local time tracking, inspired by Project Hamster](assets/social-preview-dark.png#gh-dark-mode-only)
 
 # hs: your time, on your terms
 
@@ -8,7 +8,7 @@ Local time tracking, tasks, and focus sessions for your terminal. Written in Rus
 [![Rust checks](https://github.com/trivial-si/hs/actions/workflows/ci.yml/badge.svg)](https://github.com/trivial-si/hs/actions/workflows/ci.yml)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)](LICENSE)
 
-**hs by [Trivial.si](https://trivial.si)** stores your tasks and time in a local SQLite database. Start from the command line or use the keyboard-driven terminal interface. Timers survive closing the terminal and restarting the computer.
+**hs by [trivial.si](https://trivial.si)** stores your tasks and time in a local SQLite database. Start from the command line or use the keyboard-driven terminal interface. Timers survive closing the terminal and restarting the computer.
 
 - Track activities with categories and tags; report and export your history.
 - Organize tasks in an Eisenhower matrix and track time against them.

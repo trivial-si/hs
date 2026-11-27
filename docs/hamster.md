@@ -1,6 +1,6 @@
 # Coming from Project Hamster
 
-hs is an independent Rust time tracker inspired by [Project Hamster](https://github.com/projecthamster/hamster). It is developed by Trivial.si and contributors, independently of the upstream Hamster project.
+hs is an independent Rust time tracker inspired by [Project Hamster](https://github.com/projecthamster/hamster). It is developed by trivial.si and contributors, independently of the upstream Hamster project.
 
 Hamster v3.0.3 is the behavioral reference for quick entry, workday boundaries, interval adjustments, and importing schema-v9 SQLite history. This is not a drop-in replacement for the GNOME app, its D-Bus interface, or every Hamster database version.
 

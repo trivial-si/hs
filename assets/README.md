@@ -1,6 +1,6 @@
 # Project artwork
 
-`social-preview.svg` and `social-preview-dark.svg` are the editable light and dark versions of the hs banner. They use the existing Trivial.si colors and Roboto typeface. Their PNG exports are used by the README; the light PNG also remains the repository's social preview image.
+`social-preview.svg` and `social-preview-dark.svg` are the editable light and dark versions of the hs banner. They use the existing trivial.si colors and Roboto typeface. Their PNG exports are used by the README; the light PNG also remains the repository's social preview image.
 
 The README uses [GitHub's theme fragments](https://github.blog/changelog/2021-11-24-specify-theme-context-for-images-in-markdown/) so the banner follows the selected GitHub theme. The art and layout stay the same; only the background, text and divider colors change.
 

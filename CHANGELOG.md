@@ -14,7 +14,7 @@
 
 ## 0.1.0 (2026-11-25)
 
-Initial public release of hs by Trivial.si.
+Initial public release of hs by trivial.si.
 
 - Local SQLite time tracking, categories, tags, reports, and exports.
 - Tasks, an Eisenhower matrix, and a keyboard-driven terminal interface.
