@@ -20,7 +20,15 @@ Local time tracking, tasks, and focus sessions for your terminal. Written in Rus
 
 ## Get started
 
-Build from source with Rust 1.88 or newer and a C compiler for the bundled SQLite library:
+**Prebuilt binary (Linux x86-64, glibc 2.35 or newer):** download the latest archive and `SHA256SUMS` from [GitHub Releases](https://github.com/trivial-si/hs/releases), verify the checksum, and install `hs`:
+
+```sh
+sha256sum -c SHA256SUMS
+tar -xzf hs-v0.1.0-linux-x86_64.tar.gz
+install -Dm755 hs-v0.1.0-linux-x86_64/hs "$HOME/.local/bin/hs"
+```
+
+**Build from source** with Rust 1.88 or newer and a C compiler for the bundled SQLite library:
 
 ```sh
 git clone https://github.com/trivial-si/hs.git
@@ -28,6 +36,8 @@ cd hs
 cargo build --release --locked
 install -Dm755 target/release/hs "$HOME/.local/bin/hs"
 ```
+
+Or install directly with Cargo: `cargo install --locked --git https://github.com/trivial-si/hs.git --tag v0.1.0`. See the [user guide](docs/guide.md#backups-and-shell-completion) for shell completion setup.
 
 Ensure `~/.local/bin` is on your `PATH`. Then try:
 

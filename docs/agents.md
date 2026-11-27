@@ -119,9 +119,9 @@ After the MCP handshake, the client can discover `hs_capabilities`, `hs_context`
 
 Each tool returns the agent response in `structuredContent` and in a text content block. Application failures set `isError` on the tool result. The official Python MCP SDK 1.26.0 was used to verify handshake, discovery, preview, execution, retry and receipt recovery with this server. [MCP stdio transport](https://modelcontextprotocol.io/specification/2025-11-25/basic/transports)
 
-### Classify tasks with Codex
+### Classify tasks with an MCP client
 
-Connect `hs` through MCP, then ask Codex:
+Connect `hs` through MCP (using `mcpServers` or Codex `config.toml` above), then ask your assistant:
 
 > Show suggested categories, tags, and matrix priorities for my hs inbox. My main goal this week is to finish the client proposal. Do not apply changes yet.
 
@@ -129,7 +129,7 @@ Or request application directly:
 
 > Organize my hs inbox using the priorities we discussed and apply the changes. Keep my existing labels and leave uncertain fields unchanged.
 
-The MCP initialization response supplies the classification workflow as server instructions. Codex uses the model running its session to interpret the tasks; `hs` provides records and validates edits. This requires no separate model API key, classifier service, or skill installation. The instructions guide the host's behavior; they do not make classification deterministic or guarantee that a suggested priority is correct. Supply your goals and the consequences of waiting when a title alone is insufficient.
+The MCP initialization response supplies the classification workflow as server instructions. The connected client uses the model running its session to interpret the tasks; `hs` provides records and validates edits. This requires no separate model API key, classifier service, or skill installation. The instructions guide the host's behavior; they do not make classification deterministic or guarantee that a suggested priority is correct. Supply your goals and the consequences of waiting when a title alone is insufficient.
 
 The workflow uses the existing tools:
 
@@ -138,4 +138,4 @@ The workflow uses the existing tools:
 3. Preview each proposed `task.edit` with `hs_preview`. Merge suggested tags with existing tags because the API replaces the whole tag array. For a category-only change, send the current time label alongside the category in the `activity` object. Keep status, deadlines, timers, and recorded history outside a classification edit.
 4. For a preview-only request, show the suggestions without executing them. When the user requested application, call `hs_execute` with the same input and request ID and the preview's `commit_preconditions`. Recover uncertain outcomes with `hs_receipt`; on a revision conflict, reread and reconsider the suggestion.
 
-Classification starts from a request to Codex. Running `hs tui` alone does not invoke a model or run classification in the background.
+Classification starts from a request to your MCP client. Running `hs tui` alone does not invoke a model or run classification in the background.

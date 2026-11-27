@@ -178,7 +178,7 @@ impl Fixture {
                     .unwrap()
                     .local_modes
                     .contains(LocalModes::ICANON)
-                    && terminal.text().contains("INBOX")
+                    && terminal.screen_text().contains("INBOX")
             },
         );
         terminal
@@ -237,6 +237,79 @@ impl Terminal {
 
     fn text(&self) -> String {
         String::from_utf8_lossy(&self.bytes).into_owned()
+    }
+
+    /// Reconstruct the visible terminal buffer from ANSI cursor moves so tests
+    /// remain resilient to Ratatui differential rendering across terminal sizes.
+    fn screen_text(&self) -> String {
+        let raw = self.text();
+        let mut grid: Vec<Vec<char>> = Vec::new();
+        let mut row: usize = 0;
+        let mut col: usize = 0;
+        let mut chars = raw.chars().peekable();
+        while let Some(ch) = chars.next() {
+            match ch {
+                '\x1b' if chars.peek() == Some(&'[') => {
+                    chars.next();
+                    let mut params = String::new();
+                    let mut final_byte = '\0';
+                    for next in chars.by_ref() {
+                        if ('@'..='~').contains(&next) {
+                            final_byte = next;
+                            break;
+                        }
+                        params.push(next);
+                    }
+                    match final_byte {
+                        'H' | 'f' => {
+                            let mut parts = params.split(';');
+                            let r = parts
+                                .next()
+                                .and_then(|s| s.parse::<usize>().ok())
+                                .unwrap_or(1);
+                            let c = parts
+                                .next()
+                                .and_then(|s| s.parse::<usize>().ok())
+                                .unwrap_or(1);
+                            row = r.saturating_sub(1);
+                            col = c.saturating_sub(1);
+                        }
+                        'J' if params == "2" => {
+                            grid.clear();
+                            row = 0;
+                            col = 0;
+                        }
+                        'K' => {
+                            if let Some(line) = grid.get_mut(row) {
+                                line.truncate(col);
+                            }
+                        }
+                        _ => {}
+                    }
+                }
+                '\r' => col = 0,
+                '\n' => {
+                    row += 1;
+                    col = 0;
+                }
+                ch if !ch.is_control() => {
+                    if row >= grid.len() {
+                        grid.resize_with(row + 1, Vec::new);
+                    }
+                    let line = &mut grid[row];
+                    if col >= line.len() {
+                        line.resize(col + 1, ' ');
+                    }
+                    line[col] = ch;
+                    col += 1;
+                }
+                _ => {}
+            }
+        }
+        grid.into_iter()
+            .map(|line| line.into_iter().collect::<String>())
+            .collect::<Vec<_>>()
+            .join("\n")
     }
 
     fn read_available(&mut self) {
@@ -564,7 +637,7 @@ fn space_continues_the_current_session_while_p_can_switch_to_the_selected_task()
     // silently discarding the current session's offered break.
     tui.send("p");
     tui.until("switch confirmation did not open", |terminal| {
-        terminal.text().contains("confirm")
+        terminal.screen_text().contains("confirm")
     });
     assert_eq!(fixture.session_owner(), Some(owner));
     assert_eq!(
@@ -607,7 +680,7 @@ fn starting_pomodoro_with_space_confirms_replacing_manual_tracking() {
     tui.send(" ");
     tui.until(
         "Space did not ask before replacing manual work",
-        |terminal| terminal.text().contains("confirm"),
+        |terminal| terminal.screen_text().contains("confirm"),
     );
     assert_eq!(
         fixture.current_activity().as_deref(),
@@ -654,7 +727,7 @@ fn stale_stop_confirmation_cannot_stop_a_replacement_timer() {
     tui.send("x");
     tui.until("stop confirmation did not open", |terminal| {
         // The panel also advertises Stop, so wait for the modal-only action.
-        terminal.text().contains("confirm")
+        terminal.screen_text().contains("confirm")
     });
     fixture.cli(&["start", "Replacement timer"]);
     tui.settle(Duration::from_millis(1300));
@@ -675,7 +748,7 @@ fn stale_task_confirmation_cannot_complete_renamed_work_or_stop_its_timer() {
     let mut tui = fixture.tui();
     tui.send("d");
     tui.until("task confirmation did not open", |terminal| {
-        terminal.text().contains("Complete")
+        terminal.screen_text().contains("Complete")
     });
     fixture.cli(&["task", "set", "1", "--title", "Revised outcome"]);
     tui.settle(Duration::from_millis(1300));
@@ -723,7 +796,7 @@ fn deadline_next_phase_and_tiny_resizes_remain_usable_and_ctrl_c_restores_termin
         fixture.session() == Some(("ready".into(), "short_break".into()))
     });
     tui.until("work completion banner was not drawn", |terminal| {
-        terminal.text().contains("[FOCUS")
+        terminal.screen_text().contains("[FOCUS")
     });
     tui.send(" ");
     tui.until("next did not start the short rest", |_| {
@@ -753,7 +826,7 @@ fn work_and_rest_play_once_without_interrupting_or_blocking_the_task_editor() {
     let mut tui = fixture.tui_with_mock_audio();
     tui.send("5nDuring");
     tui.until("focus did not send its audio payload", |terminal| {
-        terminal.text().contains("[FOCUS") && fixture.audio_files("wav").len() == 1
+        terminal.screen_text().contains("[FOCUS") && fixture.audio_files("wav").len() == 1
     });
     assert_eq!(fixture.audio_files("playing").len(), 1);
     // The fake player stays busy for1.5s. Input and the resulting task write
@@ -771,7 +844,7 @@ fn work_and_rest_play_once_without_interrupting_or_blocking_the_task_editor() {
     tui.settle(Duration::from_millis(100));
     tui.send("N");
     tui.until("rest did not send its audio payload", |terminal| {
-        terminal.text().contains("[BREAK") && fixture.audio_files("wav").len() == 2
+        terminal.screen_text().contains("[BREAK") && fixture.audio_files("wav").len() == 2
     });
     assert_eq!(fixture.session(), Some(("ready".into(), "focus".into())));
     tui.settle(Duration::from_millis(1200));

@@ -14,7 +14,6 @@ This is a statement of priorities, not a delivery schedule. Discuss larger chang
 - Improve terminal accessibility, small-window behavior, and keyboard discoverability.
 - Grow synthetic migration fixtures for documented Hamster schema-v9 edge cases.
 - Test additional Linux distributions and document packaging requirements.
-- Add a reproducible demonstration using fictional tasks.
 
 ## Discuss before committing
 

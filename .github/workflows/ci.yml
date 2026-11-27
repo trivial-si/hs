@@ -14,17 +14,23 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install pinned Rust toolchain
-        run: rustup toolchain install 1.100.0 --profile minimal --component rustfmt --component clippy
+        run: rustup show active-toolchain
       - name: Check documentation links
         run: python3 scripts/check-doc-links.py
       - name: Check formatting
         run: cargo fmt --all --check
       - name: Check lints
         run: cargo clippy --locked --all-targets -- -D warnings
+      - name: Check documentation builds
+        env:
+          RUSTDOCFLAGS: -D warnings
+        run: cargo doc --no-deps --locked
       - name: Run tests
         run: cargo test --locked
       - name: Build release executable
         run: cargo build --locked --release
+      - name: Smoke-test terminal demo
+        run: HS=./target/release/hs docs/demo.sh --no-tui
       - name: Verify packaged source builds
         run: cargo package --locked
 

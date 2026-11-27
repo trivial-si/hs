@@ -284,7 +284,25 @@ hs --db ./hs-backup.db report --all
 
 Choose a new backup path. The backup command takes a consistent SQLite snapshot and checks its integrity. You can open a backup with `--db` to review it or continue tracking in a separate copy.
 
-`hs completions bash`, `hs completions zsh`, and `hs completions fish` generate scripts from the running executable’s command definitions. For example, use `source <(hs completions bash)` for the current Bash session. After changing CLI options, regenerate the shipped copies from the source checkout.
+`hs completions bash`, `hs completions zsh`, and `hs completions fish` generate scripts from the running executable’s command definitions. Release archives also include pre-generated files under `completions/`.
+
+To try Bash completion in the current shell, run `source <(hs completions bash)`. For persistent completion in your shell:
+
+```sh
+# Bash
+mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions"
+hs completions bash > "${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions/hs"
+
+# Zsh (ensure ~/.zfunc is on your fpath before compinit)
+mkdir -p "$HOME/.zfunc"
+hs completions zsh > "$HOME/.zfunc/_hs"
+
+# Fish
+mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/fish/completions"
+hs completions fish > "${XDG_CONFIG_HOME:-$HOME/.config}/fish/completions/hs.fish"
+```
+
+After changing CLI options, regenerate the shipped copies from the source checkout (`tests/cli_contracts.rs` checks that they match):
 
 ```sh
 cargo run --locked --quiet -- completions bash > completions/hs.bash

@@ -26,15 +26,19 @@ The command API distinguishes `domain::ids::EntryId` and `TaskId`. `domain::mode
 
 Existing library paths such as `hs::tracking`, `hs::snapshot`, `hs::pomodoro`, `hs::model` and `hs::store` re-export the corresponding modules. The `hs::time` compatibility module keeps `Moment::system()` and `Moment::from_local(...)`. New code can call `application::clock::now()` at the command boundary and pass a `Moment` to the workflow. Tests use the same path with an explicit instant and timezone.
 
+Before 1.0, the CLI commands, `--json` output, JSON API, and MCP interface are the primary user-facing contracts. The Rust library modules are exposed for integration tests and internal composition and may change between 0.x releases.
+
 Run the development checks from the package directory.
 
 ```sh
+python3 scripts/check-doc-links.py
 cargo fmt --all --check
 cargo clippy --locked --all-targets -- -D warnings
+RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --locked
 cargo test --locked
 cargo package --locked
 ```
 
-The local audit used the checkout’s pinned Rust 1.100.0 toolchain. The declared minimum is Rust 1.88. The CI workflow includes a separate `cargo +1.88.0 check --locked --all-targets` job.
+CI uses the toolchain pinned in `rust-toolchain.toml` and runs a separate `cargo +1.88.0 check --locked --all-targets` job for the declared minimum supported Rust version.
 
 The license is GPL-3.0-or-later. See [LICENSE](../LICENSE) and [upstream credits](../NOTICE).

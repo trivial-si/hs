@@ -10,31 +10,31 @@ readme = "README.md"
 keywords = ["time-tracking", "cli", "tui", "pomodoro", "hamster"]
 categories = ["command-line-utilities"]
 license = "GPL-3.0-or-later"
-include = ["Cargo.toml", "Cargo.lock", "LICENSE", "NOTICE", "README.md", "src/**", "migrations/**", "completions/**", "tests/**", "docs/**", "assets/**", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "SUPPORT.md", "ROADMAP.md", "CHANGELOG.md"]
+include = ["Cargo.toml", "Cargo.lock", "LICENSE", "NOTICE", "README.md", "src/**", "migrations/**", "completions/**", "tests/**", "docs/**", "scripts/**", "assets/**", "!assets/trivial-superintelligence.png", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "SUPPORT.md", "ROADMAP.md", "CHANGELOG.md"]
 
 [dependencies]
-chrono = "=0.4.45"
-chrono-tz = "=0.10.4"
-iana-time-zone = "=0.1.65"
-clap = { version = "=4.6.9", features = ["derive"] }
-clap_complete = "=4.6.12"
-rusqlite = { version = "=0.40.2", features = ["bundled", "backup", "functions"] }
-serde_json = "=1.0.154"
-serde = { version = "=1.0.229", features = ["derive"] }
-sha2 = "=0.11.1"
-thiserror = "=2.0.21"
-tempfile = "=3.27.0"
-unicode-segmentation = "=1.13.3"
-unicode-width = "=0.2.3"
-ratatui = { version = "=0.30.2", default-features = false, features = ["crossterm"] }
-crossterm = "=0.29.0"
+chrono = "0.4.45"
+chrono-tz = "0.10.4"
+iana-time-zone = "0.1.65"
+clap = { version = "4.6.9", features = ["derive"] }
+clap_complete = "4.6.12"
+rusqlite = { version = "0.40.2", features = ["bundled", "backup", "functions"] }
+serde_json = "1.0.154"
+serde = { version = "1.0.229", features = ["derive"] }
+sha2 = "0.11.1"
+thiserror = "2.0.21"
+tempfile = "3.27.0"
+unicode-segmentation = "1.13.3"
+unicode-width = "0.2.3"
+ratatui = { version = "0.30.2", default-features = false, features = ["crossterm"] }
+crossterm = "0.29.0"
 
 [target.'cfg(unix)'.dependencies]
-rustix = { version = "=1.1.6", features = ["termios"] }
-signal-hook = "=0.4.6"
+rustix = { version = "1.1.6", features = ["termios"] }
+signal-hook = "0.4.6"
 
 [target.'cfg(target_os = "linux")'.dev-dependencies]
-rustix = { version = "=1.1.6", features = ["pty", "process"] }
+rustix = { version = "1.1.6", features = ["pty", "process"] }
 
 [profile.release]
 lto = "thin"

@@ -11,9 +11,11 @@ Check existing issues first. Small documentation fixes can go straight to a pull
 Fork the repository, clone your fork, and create a topic branch. Install the pinned toolchain in `rust-toolchain.toml`, including rustfmt and clippy, plus a C compiler. Linux is the initial supported platform. The minimum Rust version is declared in `Cargo.toml` and checked separately in CI.
 
 ```sh
+python3 scripts/check-doc-links.py
 cargo build --locked
 cargo fmt --all --check
 cargo clippy --locked --all-targets -- -D warnings
+RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --locked
 cargo test --locked
 cargo package --locked
 ```

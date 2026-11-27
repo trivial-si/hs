@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install pinned Rust toolchain
-        run: rustup toolchain install 1.100.0 --profile minimal --component rustfmt --component clippy
+        run: rustup show active-toolchain
       - name: Verify version and checks
         env:
           RELEASE_TAG: ${{ github.ref_name }}
@@ -26,17 +26,21 @@ jobs:
           python3 scripts/check-doc-links.py
           cargo fmt --all --check
           cargo clippy --locked --all-targets -- -D warnings
+          RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --locked
           cargo test --locked
           cargo build --release --locked
+          HS=./target/release/hs docs/demo.sh --no-tui
           cargo package --locked
-      - name: Package binary and notices
+      - name: Package binary, completions, and notices
         env:
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
           bundle="hs-${RELEASE_TAG}-linux-x86_64"
           mkdir -p "dist/$bundle"
           cp target/release/hs LICENSE NOTICE "dist/$bundle/"
+          cp -r completions "dist/$bundle/"
           tar -C dist -czf "dist/$bundle.tar.gz" "$bundle"
+          python3 scripts/extract-release-notes.py "$RELEASE_TAG" > dist/release-notes.md
           cd dist
           sha256sum "$bundle.tar.gz" > SHA256SUMS
       - name: Create draft release for maintainer review
@@ -44,4 +48,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$RELEASE_TAG" dist/*.tar.gz dist/SHA256SUMS --verify-tag --draft --title "hs $RELEASE_TAG" --notes-file .github/release-notes.md
+          gh release create "$RELEASE_TAG" dist/*.tar.gz dist/SHA256SUMS --verify-tag --draft --title "hs $RELEASE_TAG" --notes-file dist/release-notes.md

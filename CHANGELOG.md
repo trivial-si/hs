@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Relaxed exact dependency version pins in `Cargo.toml` to standard semver ranges while keeping `Cargo.lock` and `--locked` builds reproducible, and grouped Dependabot updates.
+- Included `completions/` in Linux release archives, assembled draft release notes from `CHANGELOG.md` via `scripts/extract-release-notes.py`, and read the pinned CI toolchain from `rust-toolchain.toml`.
+- Added rustdoc and `docs/demo.sh --no-tui` checks to CI, and slimmed `cargo package` by excluding unused brand artwork while including `scripts/`.
+- Documented prebuilt release installation, `cargo install --git`, persistent shell completion setup, client-neutral MCP task classification, and pre-1.0 library stability.
+- Made `tests/tui_process.rs` reconstruct rendered screen cells so `cargo test` passes reliably inside 80x24 interactive terminals.
 - Updated clap to 4.6.9, rustix to 1.1.6, sha2 to 0.11.1, signal-hook to 0.4.6, and unicode-width to 0.2.3. Request and import fingerprints are unchanged.
 - Updated the pinned `actions/checkout` CI action to 7.0.1.
 - Documented a verified installation on Arch Linux in the user guide.
