@@ -1,6 +1,6 @@
 [package]
-name = "hs"
-version = "0.1.0"
+name = "hs-time"
+version = "0.1.1"
 edition = "2024"
 rust-version = "1.88"
 description = "Local time tracking, tasks, and focus sessions. Inspired by Project Hamster."
@@ -10,7 +10,15 @@ readme = "README.md"
 keywords = ["time-tracking", "cli", "tui", "pomodoro", "hamster"]
 categories = ["command-line-utilities"]
 license = "GPL-3.0-or-later"
-include = ["Cargo.toml", "Cargo.lock", "LICENSE", "NOTICE", "README.md", "src/**", "migrations/**", "completions/**", "tests/**", "docs/**", "scripts/**", "assets/**", "!assets/trivial-superintelligence.png", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "SUPPORT.md", "ROADMAP.md", "CHANGELOG.md"]
+include = ["Cargo.toml", "Cargo.lock", "LICENSE", "NOTICE", "README.md", "src/**", "migrations/**", "completions/**", "tests/**", "docs/**", "scripts/**", "assets/**", "!assets/trivial-superintelligence.png", "!assets/demo-tui.gif", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "SUPPORT.md", "ROADMAP.md", "CHANGELOG.md"]
+
+[lib]
+name = "hs"
+path = "src/lib.rs"
+
+[[bin]]
+name = "hs"
+path = "src/main.rs"
 
 [dependencies]
 chrono = "0.4.45"

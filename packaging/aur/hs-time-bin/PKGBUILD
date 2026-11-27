@@ -1,0 +1,28 @@
+# Maintainer: Ivan Filković <ifilkovic@users.noreply.github.com>
+pkgname=hs-time-bin
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="Local time tracking, tasks, and focus sessions for your terminal (prebuilt binary)"
+arch=('x86_64')
+url="https://github.com/trivial-si/hs"
+license=('GPL-3.0-or-later')
+depends=('glibc')
+optdepends=(
+  'libpulse: completion sound via paplay'
+  'pipewire-audio: completion sound via pw-play'
+  'alsa-utils: completion sound via aplay'
+)
+provides=('hs-time')
+conflicts=('hs-time')
+source=("https://github.com/trivial-si/hs/releases/download/v${pkgver}/hs-v${pkgver}-linux-x86_64.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+  cd "${srcdir}/hs-v${pkgver}-linux-x86_64"
+  install -Dm755 hs "${pkgdir}/usr/bin/hs"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 NOTICE "${pkgdir}/usr/share/licenses/${pkgname}/NOTICE"
+  install -Dm644 completions/hs.bash "${pkgdir}/usr/share/bash-completion/completions/hs"
+  install -Dm644 completions/_hs "${pkgdir}/usr/share/zsh/site-functions/_hs"
+  install -Dm644 completions/hs.fish "${pkgdir}/usr/share/fish/vendor_completions.d/hs.fish"
+}

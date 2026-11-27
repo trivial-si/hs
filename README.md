@@ -16,7 +16,7 @@ Local time tracking, tasks, and focus sessions for your terminal. Written in Rus
 - Import existing Hamster schema-v9 history into a separate database.
 - Use the JSON API or local MCP server when you want an agent to help.
 
-**Status:** early development, with Linux as the supported platform for this initial release. Interfaces may evolve before 1.0; database and behavior changes are documented in the [changelog](CHANGELOG.md). Keep backups of important history.
+**Status:** early development, with Linux as the primary supported platform (macOS builds and core tests run in CI; manual testing feedback is welcome). Interfaces may evolve before 1.0; database and behavior changes are documented in the [changelog](CHANGELOG.md). Keep backups of important history.
 
 ## Get started
 
@@ -24,8 +24,8 @@ Local time tracking, tasks, and focus sessions for your terminal. Written in Rus
 
 ```sh
 sha256sum -c SHA256SUMS
-tar -xzf hs-v0.1.0-linux-x86_64.tar.gz
-install -Dm755 hs-v0.1.0-linux-x86_64/hs "$HOME/.local/bin/hs"
+tar -xzf hs-v0.1.1-linux-x86_64.tar.gz
+install -Dm755 hs-v0.1.1-linux-x86_64/hs "$HOME/.local/bin/hs"
 ```
 
 **Build from source** with Rust 1.88 or newer and a C compiler for the bundled SQLite library:
@@ -37,7 +37,7 @@ cargo build --release --locked
 install -Dm755 target/release/hs "$HOME/.local/bin/hs"
 ```
 
-Or install directly with Cargo: `cargo install --locked --git https://github.com/trivial-si/hs.git --tag v0.1.0`. See the [user guide](docs/guide.md#backups-and-shell-completion) for shell completion setup.
+Or install directly with Cargo: `cargo install --locked --git https://github.com/trivial-si/hs.git --tag v0.1.1`. Arch Linux packaging templates are in [packaging/aur](packaging/aur/README.md). See the [user guide](docs/guide.md#backups-and-shell-completion) for shell completion setup.
 
 Ensure `~/.local/bin` is on your `PATH`. Then try:
 
@@ -56,7 +56,7 @@ hs tui
 
 Press `?` for keyboard help. Select a task and press `s` to track it or Space to start a focus session. Quitting leaves the timer saved.
 
-[![The hs terminal interface: a running focus session above an Eisenhower matrix of fictional tasks](assets/demo-tui.png)](docs/demo.md)
+[![Animated demo of hs: adding a task, viewing the Eisenhower matrix, running a Pomodoro focus session in hs tui, and checking that the timer persists after quitting](assets/demo-tui.gif)](docs/demo.md)
 
 To try this with fictional tasks and a throwaway database, run the [terminal demo](docs/demo.md).
 

@@ -45,3 +45,10 @@ rsvg-convert -z 2 assets/demo-tui.svg -o assets/demo-tui.png
 ```
 
 The script runs `docs/demo.sh` in a 112 by 34 pseudo-terminal, captures the interface once it appears, and quits.
+
+To regenerate the animated GIF shown in the README (requires `rsvg-convert` and `ffmpeg`, with no Python packages outside the standard library):
+
+```sh
+cargo build --release --locked
+python3 scripts/record-demo-gif.py target/release/hs assets/demo-tui.gif
+```
