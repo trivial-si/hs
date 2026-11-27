@@ -20,6 +20,12 @@ Local time tracking, tasks, and focus sessions for your terminal. Written in Rus
 
 ## Get started
 
+**Homebrew (macOS and Linux):**
+
+```sh
+brew install trivial-si/tap/hs
+```
+
 **Prebuilt binaries (Linux x86-64/ARM64 and macOS Apple Silicon/Intel):** download the archive for your platform and `SHA256SUMS` from [GitHub Releases](https://github.com/trivial-si/hs/releases), verify the checksum, and install `hs`:
 
 ```sh
@@ -38,7 +44,7 @@ cargo build --release --locked
 install -Dm755 target/release/hs "$HOME/.local/bin/hs"
 ```
 
-Or install directly with Cargo: `cargo install --locked --git https://github.com/trivial-si/hs.git --tag v0.1.2`. Packaging templates for [Homebrew](packaging/homebrew/README.md) and [Arch Linux AUR](packaging/aur/README.md) are in `packaging/`. See the [user guide](docs/guide.md#backups-and-shell-completion) for shell completion setup.
+Or install directly with Cargo: `cargo install --locked --git https://github.com/trivial-si/hs.git --tag v0.1.2`. Packaging files for [Homebrew](packaging/homebrew/README.md) and [Arch Linux AUR](packaging/aur/README.md) are in `packaging/`. See the [user guide](docs/guide.md#backups-and-shell-completion) for shell completion setup.
 
 Ensure `~/.local/bin` is on your `PATH`. Then try:
 

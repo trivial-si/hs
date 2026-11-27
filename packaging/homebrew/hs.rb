@@ -7,20 +7,20 @@ class Hs < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/trivial-si/hs/releases/download/v#{version}/hs-v#{version}-macos-aarch64.tar.gz"
-      sha256 "REPLACE_WITH_MACOS_AARCH64_SHA256"
+      sha256 "1be375ac5c70164fff4f4307a07d1e37e6c3b7109b2e5e4347f0c7cdbc807a03"
     else
       url "https://github.com/trivial-si/hs/releases/download/v#{version}/hs-v#{version}-macos-x86_64.tar.gz"
-      sha256 "REPLACE_WITH_MACOS_X86_64_SHA256"
+      sha256 "ccab3cca41493321275ef27a66913fdea6c07c899b97c1ed930bcd49cc94ce6b"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/trivial-si/hs/releases/download/v#{version}/hs-v#{version}-linux-aarch64.tar.gz"
-      sha256 "REPLACE_WITH_LINUX_AARCH64_SHA256"
+      sha256 "b350d7cfb1f696a265030754099d23a8e8873ffca557370351a61b9153fc1622"
     else
       url "https://github.com/trivial-si/hs/releases/download/v#{version}/hs-v#{version}-linux-x86_64.tar.gz"
-      sha256 "REPLACE_WITH_LINUX_X86_64_SHA256"
+      sha256 "6f8dc9f0b701129549506814afb5916ebc4838a47d0ac63a5504620b7528d78b"
     end
   end
 

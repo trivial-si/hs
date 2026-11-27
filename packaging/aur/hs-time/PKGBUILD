@@ -16,7 +16,7 @@ optdepends=(
 provides=('hs-time')
 conflicts=('hs-time-bin')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/trivial-si/hs/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('1857954fda7e68d88b12b2fbb30c31aa6be8a66a5e96e8a8452823e73dcadf9c')
 
 prepare() {
   cd "${srcdir}/hs-${pkgver}"

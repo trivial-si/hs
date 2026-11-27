@@ -15,7 +15,7 @@ optdepends=(
 provides=('hs-time')
 conflicts=('hs-time')
 source=("https://github.com/trivial-si/hs/releases/download/v${pkgver}/hs-v${pkgver}-linux-x86_64.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('6f8dc9f0b701129549506814afb5916ebc4838a47d0ac63a5504620b7528d78b')
 
 package() {
   cd "${srcdir}/hs-v${pkgver}-linux-x86_64"
