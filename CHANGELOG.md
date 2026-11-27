@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.1.2 (2026-11-27)
+
+- Added multi-platform prebuilt release archives in `.github/workflows/release.yml` for `macos-aarch64` (Apple Silicon), `macos-x86_64` (Intel), `linux-aarch64` (ARM64), and `linux-x86_64`, each bundled with `completions/`, `LICENSE`, and `NOTICE` plus a combined `SHA256SUMS`.
+- Added a Homebrew formula template (`packaging/homebrew/hs.rb`) covering macOS and Linux, plus `scripts/update-packaging-checksums.py` to populate Homebrew and AUR SHA-256 checksums from a release `SHA256SUMS` file.
+- Updated installation and release documentation for macOS and Linux ARM64 archives.
+
 ## 0.1.1 (2026-11-27)
 
 - Renamed the Cargo package to `hs-time` (keeping the `hs` binary and `hs` library name) so it is ready for crates.io publication, relaxed exact dependency pins to semver ranges while preserving `--locked` builds, and grouped Dependabot updates.

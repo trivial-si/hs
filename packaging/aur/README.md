@@ -4,7 +4,7 @@ These templates package `hs` for the AUR as `hs-time-bin` (prebuilt x86-64 relea
 
 ## Publish or update an AUR package
 
-After publishing a GitHub release (such as `v0.1.1`):
+After publishing a GitHub release (such as `v0.1.2`):
 
 1. Clone the AUR repository (first time: `ssh aur@aur.archlinux.org setup-repo hs-time-bin`):
 
@@ -26,7 +26,7 @@ makepkg -si
 
 ```sh
 git add PKGBUILD .SRCINFO
-git commit -m "Update hs-time-bin to 0.1.1"
+git commit -m "Update hs-time-bin to 0.1.2"
 git push
 ```
 
