@@ -9,7 +9,7 @@ These projects overlap in different ways. Compare the workflow you want to keep 
 | **hs** | SQLite. CLI commands open the same database when needed. A separate daemon is unnecessary. | Terminal UI with an Eisenhower matrix and built-in Pomodoro sessions. | [JSON CLI and stdio MCP](agents.md), including previews and revision checks for writes. |
 | **Project Hamster** | SQLite. The GNOME app uses background D-Bus services. | Desktop activity tracking and reporting, with a GTK interface. | Local database and D-Bus. [Upstream repository and backup instructions](https://github.com/projecthamster/hamster). |
 | **Timewarrior** | Local monthly `.data` files. The `timew` CLI runs on demand. | Tagged intervals, terminal charts, and reporting extensions. | JSON interval import and export, plus a [Taskwarrior hook](https://timewarrior.net/docs/taskwarrior/). [Command reference](https://timewarrior.net/reference/timew.1/). |
-| **Watson** | Local JSON frames. The CLI runs on demand. | Start and stop project timers with tags and produce reports from the terminal. | JSON and CSV reports and optional sync through Fullmoon. [Upstream documentation](https://github.com/jmaupetit/Watson). |
+| **Watson** | Local JSON frames. The CLI runs on demand. | Start and stop project timers with tags and produce reports from the terminal. | JSON and CSV reports and optional remote sync via `watson sync` (such as Crick). [Upstream documentation](https://github.com/jmaupetit/Watson). |
 | **Taskwarrior** | Taskwarrior 3 stores tasks in a local SQLite database. Core CLI commands work locally. | Task filters and reports, priorities, due dates, and recurrence. Add time tracking with the Timewarrior hook if needed. | JSON task export, hooks, and optional Taskchampion sync. [Command reference](https://taskwarrior.org/docs/man/task.1/) · [Storage and migration](https://taskwarrior.org/docs/upgrade-3/). |
 
 The built-in matrix and Pomodoro in this comparison are features of hs. Other projects can be paired with separate frontends, timers, or scripts. JSON exports are data exchange formats. Only the hs row describes the write protocol implemented by `hs mcp`.
@@ -18,7 +18,7 @@ The built-in matrix and Pomodoro in this comparison are features of hs. Other pr
 
 - Keep **Project Hamster** if its GNOME desktop workflow already fits how you track activities.
 - Keep **Timewarrior** for interval editing, report extensions, or an existing Taskwarrior time-tracking hook.
-- Keep **Watson** for a compact project-and-tag workflow or existing Fullmoon sync.
+- Keep **Watson** for a compact project-and-tag workflow or an existing `watson sync` setup.
 - Keep **Taskwarrior** if recurrence, configurable task reports, or synchronization are central to your task list.
 - Try **hs** if you want a single local terminal workflow for the matrix, a focus timer, and time entries.
 
