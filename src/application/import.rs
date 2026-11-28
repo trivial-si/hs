@@ -130,6 +130,48 @@ mod tests {
     }
 
     #[test]
+    fn import_preserves_unicode_activity_and_distinct_multi_word_tag_names() {
+        let (_dir, path, mut store) = fixture();
+        let src = Connection::open(&path).unwrap();
+        src.execute_batch(
+            "
+            UPDATE activities SET name='Revisão técnica' WHERE id=20;
+            UPDATE facts SET description='Relatório de São Paulo' WHERE id=100;
+            INSERT INTO tags VALUES (33,'deep work',1),(34,'Deep Work',0),(35,' deep work ',1);
+            INSERT INTO fact_tags VALUES (100,33),(100,34),(100,35);
+            ",
+        )
+        .unwrap();
+        drop(src);
+
+        let report = import_hamster(&mut store, &path, "home", None, false).unwrap();
+        assert_eq!(report.tags, 6);
+        let entries = store.entries().unwrap();
+        let entry = &entries[0];
+        assert_eq!(entry.activity, "Revisão técnica");
+        assert_eq!(entry.description, "Relatório de São Paulo");
+        assert_eq!(entry.tags.len(), 5);
+        for name in ["deep work", "Deep Work", " deep work "] {
+            assert!(entry.tags.iter().any(|tag| tag == name), "{name:?}");
+        }
+    }
+
+    #[test]
+    fn import_rejects_blank_category_before_saving_entries_or_settings() {
+        let (_dir, path, mut store) = fixture();
+        let src = Connection::open(&path).unwrap();
+        src.execute("INSERT INTO categories VALUES (12,'')", [])
+            .unwrap();
+        drop(src);
+
+        let err = import_hamster(&mut store, &path, "home", Some(330), false).unwrap_err();
+        assert!(matches!(err, Error::Input(ref message) if message.contains("category 12")));
+        assert!(store.entries().unwrap().is_empty());
+        assert!(store.names("categories").unwrap().is_empty());
+        assert_eq!(store.day_start().unwrap(), 0);
+    }
+
+    #[test]
     fn source_conflict_rolls_back_even_earlier_new_rows() {
         let (_dir, path, mut store) = fixture();
         import_hamster(&mut store, &path, "home", None, false).unwrap();
