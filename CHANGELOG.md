@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Documented a source installation and disposable SQLite smoke test on Debian 12.
+- Documented and verified a source installation and disposable SQLite smoke test on Fedora 44.
 - Mark clipped TUI task titles and keep confirmation keys visible in compact terminals.
 
 ## 0.1.2 (2026-11-27)
