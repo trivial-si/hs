@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Mark clipped TUI task titles and keep confirmation keys visible in compact terminals.
+
 ## 0.1.2 (2026-11-27)
 
 - Added multi-platform prebuilt release archives in `.github/workflows/release.yml` for `macos-aarch64` (Apple Silicon), `macos-x86_64` (Intel), `linux-aarch64` (ARM64), and `linux-x86_64`, each bundled with `completions/`, `LICENSE`, and `NOTICE` plus a combined `SHA256SUMS`.
