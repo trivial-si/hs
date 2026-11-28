@@ -64,6 +64,40 @@ rm /tmp/hs-trial.db
 
 For completion sounds, any of `paplay` (from `libpulse`), `pw-play` (from `pipewire-audio`), or `aplay` (from `alsa-utils`) works. A desktop install usually has one already. Without them, `hs` falls back to the terminal bell.
 
+### Verified example: Debian 12
+
+These steps were checked on Debian 12 (Bookworm, ARM64) using GCC 12.2 and the pinned Rust toolchain. Install the compiler, Git and the tools needed to fetch the official [rustup installer](https://rustup.rs/):
+
+```sh
+sudo apt-get update
+sudo apt-get install build-essential git curl ca-certificates
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none
+. "$HOME/.cargo/env"
+```
+
+Clone the repository and build with the toolchain in `rust-toolchain.toml`:
+
+```sh
+git clone https://github.com/trivial-si/hs.git
+cd hs
+cargo build --release --locked
+install -Dm755 target/release/hs "$HOME/.local/bin/hs"
+export PATH="$HOME/.local/bin:$PATH"
+hs --version
+```
+
+Use a fresh temporary directory to check time tracking and task storage:
+
+```sh
+trial_dir="$(mktemp -d)"
+hs --db "$trial_dir/hs-trial.db" start 'Writing@Work, #project'
+hs --db "$trial_dir/hs-trial.db" stop
+hs --db "$trial_dir/hs-trial.db" list --today
+hs --db "$trial_dir/hs-trial.db" task add 'Finish the proposal' --quadrant plan
+```
+
+Completion chimes use an optional audio player. Debian provides `paplay` in `pulseaudio-utils`, `pw-play` in `pipewire-bin`, and `aplay` in `alsa-utils`. The timer works with the terminal bell when none is available.
+
 ## Choose a workflow
 
 **Plan a task first (recommended for the matrix and TUI).** Capture the outcome, then select it in the TUI and press Space for a Pomodoro or `s` for ordinary tracking. Mark the task done when you have sent the proposal; stopping its timer only ends the current stretch of work.
