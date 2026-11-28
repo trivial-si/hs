@@ -90,6 +90,7 @@ Read the [migration guide](docs/hamster.md) for supported schemas, a trial impor
 - [User guide](docs/guide.md): tracking, tasks, TUI, Pomodoro, reports, backup, and completion.
 - [Terminal demo](docs/demo.md): a scripted tour with fictional tasks and a temporary database.
 - [Hamster migration](docs/hamster.md): importing existing history.
+- [Time-tracking and task-manager alternatives](docs/alternatives.md): compare workflows and migration options.
 - [JSON API and MCP](docs/agents.md): local agent integration and write safeguards.
 - [Architecture](docs/architecture.md): where the code lives and how it fits together.
 - [Roadmap](ROADMAP.md) and [release history](CHANGELOG.md).

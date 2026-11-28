@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added a workflow and migration comparison with Project Hamster, Timewarrior, Watson, and Taskwarrior.
+
 ## 0.1.3 (2026-11-28)
 
 - Mark clipped TUI task titles with an ellipsis and keep confirmation keyboard hints readable in compact terminals (`48x16`, `60x18`, `80x20`).
