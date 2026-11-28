@@ -98,6 +98,38 @@ hs --db "$trial_dir/hs-trial.db" task add 'Finish the proposal' --quadrant plan
 
 Completion chimes use an optional audio player. Debian provides `paplay` in `pulseaudio-utils`, `pw-play` in `pipewire-bin`, and `aplay` in `alsa-utils`. The timer works with the terminal bell when none is available.
 
+### Verified example: Fedora 44
+
+These steps were checked on Fedora 44 (ARM64). Install the compiler and Git with DNF, then install [rustup](https://rustup.rs/) so Cargo can use the toolchain pinned in the repository:
+
+```sh
+sudo dnf install gcc git curl ca-certificates
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain none
+. "$HOME/.cargo/env"
+```
+
+Clone, build and install in your user directory:
+
+```sh
+git clone https://github.com/trivial-si/hs.git
+cd hs
+cargo build --release --locked
+install -Dm755 target/release/hs "$HOME/.local/bin/hs"
+export PATH="$HOME/.local/bin:$PATH"
+hs --version
+```
+
+Check that an entry can be written and listed using a disposable database:
+
+```sh
+trial_dir="$(mktemp -d)"
+hs --db "$trial_dir/hs-trial.db" add -- '-30 -10 Fedora install check'
+hs --db "$trial_dir/hs-trial.db" list --all
+rm -rf -- "$trial_dir"
+```
+
+For completion chimes, Fedora provides `paplay` in `pulseaudio-utils`, `pw-play` in `pipewire-utils`, and `aplay` in `alsa-utils`. Install one if your desktop does not already provide it. Otherwise, the timer uses the terminal bell.
+
 ## Choose a workflow
 
 **Plan a task first (recommended for the matrix and TUI).** Capture the outcome, then select it in the TUI and press Space for a Pomodoro or `s` for ordinary tracking. Mark the task done when you have sent the proposal; stopping its timer only ends the current stretch of work.
