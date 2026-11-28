@@ -199,24 +199,6 @@ fn pane(frame: &mut Frame, area: Rect, screen: &Screen<'_>, index: usize) {
         );
         return;
     }
-    // Ratatui cannot display an item taller than the list viewport. A compact
-    // inbox has one content row, so retain the title and omit its metadata.
-    let show_details = block.inner(area).height >= 2;
-    let items: Vec<_> = screen.panes[index]
-        .iter()
-        .map(|task| {
-            let mut lines = vec![Line::raw(format!(
-                "#{} {}",
-                task.id,
-                crate::cli::visible(&task.title)
-            ))];
-            let detail = task_summary(task, screen.snapshot, screen.today);
-            if show_details && !detail.is_empty() {
-                lines.push(Line::styled(format!("  {detail}"), subdued(screen.color)));
-            }
-            ListItem::new(lines)
-        })
-        .collect();
     let selected = active
         .then(|| {
             screen.panes[index]
@@ -224,6 +206,26 @@ fn pane(frame: &mut Frame, area: Rect, screen: &Screen<'_>, index: usize) {
                 .position(|task| Some(task.id) == screen.selected)
         })
         .flatten();
+    // Ratatui cannot display an item taller than the list viewport. A compact
+    // inbox has one content row, so retain the title and omit its metadata.
+    let inner = block.inner(area);
+    let show_details = inner.height >= 2;
+    // The list reserves two columns for "> " when an item is selected.
+    let title_width = inner
+        .width
+        .saturating_sub(if selected.is_some() { 2 } else { 0 });
+    let items: Vec<_> = screen.panes[index]
+        .iter()
+        .map(|task| {
+            let title = format!("#{} {}", task.id, task.title);
+            let mut lines = vec![Line::raw(clipped_title(&title, usize::from(title_width)))];
+            let detail = task_summary(task, screen.snapshot, screen.today);
+            if show_details && !detail.is_empty() {
+                lines.push(Line::styled(format!("  {detail}"), subdued(screen.color)));
+            }
+            ListItem::new(lines)
+        })
+        .collect();
     let mut state = ListState::default().with_selected(selected);
     frame.render_stateful_widget(
         List::new(items)
@@ -355,7 +357,13 @@ fn popup(frame: &mut Frame, area: Rect, screen: &Screen<'_>) -> u16 {
                     .collect::<Vec<_>>(),
             ),
             9,
-            "y: confirm  n/Esc: cancel  PgUp/PgDn: scroll",
+            if area.width >= 50 {
+                "y: confirm  n/Esc: cancel  PgUp/PgDn: scroll"
+            } else if area.width >= 31 {
+                "y:yes n/Esc:no PgUp/PgDn"
+            } else {
+                "y:yes n/Esc:no"
+            },
         ),
     };
     let popup = centered(area, 76, height);
@@ -380,6 +388,9 @@ fn clipped_title(text: &str, width: usize) -> String {
     let text = crate::cli::visible(text);
     if UnicodeWidthStr::width(text.as_str()) <= width {
         return text;
+    }
+    if width < 3 {
+        return ".".repeat(width);
     }
     let mut result = String::new();
     let mut used = 0;
@@ -846,6 +857,56 @@ mod tests {
         let tail = input_tail(&value, 10);
         assert!(tail.ends_with("e\u{301}👩‍💻"));
         assert_eq!(UnicodeWidthStr::width(tail.as_str()), 10);
+    }
+
+    #[test]
+    fn compact_terminal_keeps_title_due_date_timer_and_confirmation_actions_readable() {
+        let (_dir, mut store) = timer_store(hs::domain::pomodoro::Config {
+            focus_seconds: 10,
+            ..Default::default()
+        });
+        let mut snapshot = timer_snapshot(&mut store, 3);
+        let task = snapshot.tasks.iter_mut().find(|task| task.id == 2).unwrap();
+        task.title = format!("Quarterly {}", "計画".repeat(40));
+        task.due_date = Some("2026-11-22".parse().unwrap());
+        let mut ui = screen(&snapshot);
+        let confirmation = format!(
+            "Complete #2: {}?\nThis will mark the task done.",
+            snapshot
+                .tasks
+                .iter()
+                .find(|task| task.id == 2)
+                .unwrap()
+                .title,
+        );
+        for (width, height) in [(48, 16), (60, 18), (80, 20)] {
+            ui.modal = Modal::None;
+            ui.modal_scroll = 0;
+            let rendered = text(&draw(&ui, width, height));
+            let task_row = rendered
+                .lines()
+                .find(|row| row.contains("> #2 Quarterly"))
+                .unwrap_or_else(|| panic!("selected row missing at {width}x{height}: {rendered}"));
+            assert!(task_row.contains("..."), "{task_row}");
+            assert!(rendered.contains("due 2026-11-22 !"), "{rendered}");
+            assert!(rendered.contains("00:07"), "{rendered}");
+
+            ui.modal = Modal::Confirm {
+                title: "Complete task",
+                message: &confirmation,
+            };
+            ui.modal_scroll = u16::MAX;
+            let rendered = text(&draw(&ui, width, height));
+            assert!(
+                rendered.contains("This will mark the task done."),
+                "{rendered}"
+            );
+            assert!(
+                rendered.contains("n/Esc") && rendered.contains("PgUp/PgDn"),
+                "{rendered}"
+            );
+            assert!(rendered.contains("y:"), "{rendered}");
+        }
     }
 
     fn moment(seconds: i64) -> Moment {

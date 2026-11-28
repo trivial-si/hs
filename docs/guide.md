@@ -181,7 +181,7 @@ Select a task and press **Space** to start focus. Space then pauses or resumes t
 
 Editors support typing or paste, Backspace by visible character, and `Ctrl-U` to clear. `Enter` saves; `Esc` cancels. A due date accepts `YYYY-MM-DD` or `none`. Switching to another timer asks for confirmation, and a timer changed by another client makes a stale confirmation fail instead of stopping the replacement. Completing or archiving also checks that the task and its associated timer still match the confirmation. If they changed, review them and confirm again. Undocumented Ctrl/Alt combinations do not activate ordinary shortcuts.
 
-Wide terminals show all four quadrants with the inbox below; small terminals show the selected pane. `NO_COLOR` keeps selection and completion emphasis without colors. The interface requires an interactive input/output terminal with cursor support. Use `hs matrix` for ordinary printed output or `hs --json matrix` for structured output.
+Wide terminals show all four quadrants with the inbox below; small terminals show the selected pane. Task titles that do not fit end with an ellipsis. Press Enter to read the full title and due date. Narrow confirmation dialogs use short keyboard hints. `NO_COLOR` keeps selection and completion emphasis without colors. The interface requires an interactive input/output terminal with cursor support. Use `hs matrix` for ordinary printed output or `hs --json matrix` for structured output.
 
 ## Prioritize tasks with the Eisenhower matrix
 
