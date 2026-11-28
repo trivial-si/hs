@@ -2,9 +2,12 @@
 
 ## Unreleased
 
-- Documented a source installation and disposable SQLite smoke test on Debian 12.
-- Documented and verified a source installation and disposable SQLite smoke test on Fedora 44.
-- Mark clipped TUI task titles and keep confirmation keys visible in compact terminals.
+## 0.1.3 (2026-11-28)
+
+- Mark clipped TUI task titles with an ellipsis and keep confirmation keyboard hints readable in compact terminals (`48x16`, `60x18`, `80x20`).
+- Added synthetic Project Hamster schema-v9 import tests for Unicode activities/descriptions, case- and whitespace-distinct multi-word tags, and atomic rejection of blank categories.
+- Documented verified source installations on Debian 12 and Fedora 44 in the user guide.
+- Added `cargo-binstall` metadata in `Cargo.toml` and prepared `hs-time` for crates.io installation (`cargo install hs-time --locked`).
 
 ## 0.1.2 (2026-11-27)
 
