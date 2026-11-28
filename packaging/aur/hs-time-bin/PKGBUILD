@@ -1,6 +1,6 @@
 # Maintainer: Ivan Filković <ifilkovic@users.noreply.github.com>
 pkgname=hs-time-bin
-pkgver=0.1.2
+pkgver=0.1.3
 pkgrel=1
 pkgdesc="Local time tracking, tasks, and focus sessions for your terminal (prebuilt binary)"
 arch=('x86_64')
@@ -15,7 +15,7 @@ optdepends=(
 provides=('hs-time')
 conflicts=('hs-time')
 source=("https://github.com/trivial-si/hs/releases/download/v${pkgver}/hs-v${pkgver}-linux-x86_64.tar.gz")
-sha256sums=('6f8dc9f0b701129549506814afb5916ebc4838a47d0ac63a5504620b7528d78b')
+sha256sums=('ee4bf97fecb3f904f201c8b9f76100d08322d80a7eedee637deb3703a773e4ff')
 
 package() {
   cd "${srcdir}/hs-v${pkgver}-linux-x86_64"
